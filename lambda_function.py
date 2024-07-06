@@ -4,7 +4,7 @@ from botoface.exceptions import ClientError
 
 # Initialize the DynamoDB client
 dynamodb = boto3.resource('dynamodb')
-table = dynamodb.Table('ResumeData')
+table = dynamodb.Table('resumeChallenge')
 
 def lambda_handler(event, context):
     try:

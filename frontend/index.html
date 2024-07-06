@@ -78,43 +78,59 @@
             const resumeDiv = document.getElementById('resume');
             
             // Basic Info
-            resumeDiv.innerHTML = `
-                <h1>${resume.basics.name}</h1>
-                <p>${resume.basics.label}</p>
-                <p>${resume.basics.email} | ${resume.basics.phone}</p>
-                <p>${resume.basics.summary}</p>
-            `;
+            if (resume.basics) {
+                resumeDiv.innerHTML += `
+                    <h1>${resume.basics.name}</h1>
+                    <p>${resume.basics.label}</p>
+                    <p>${resume.basics.email} | ${resume.basics.phone}</p>
+                    <p>${resume.basics.summary}</p>
+                `;
+            } else {
+                resumeDiv.innerHTML += '<p>Basic information not available.</p>';
+            }
 
             // Work Experience
-            resumeDiv.innerHTML += '<h2>Work Experience</h2>';
-            resume.work.forEach(job => {
-                resumeDiv.innerHTML += `
-                    <div class="job">
-                        <span class="job-title">${job.position}</span> at 
-                        <span class="job-company">${job.name}</span>
-                        <p>${job.startDate} - ${job.endDate || 'Present'}</p>
-                        <p>${job.summary}</p>
-                    </div>
-                `;
-            });
+            if (resume.work) {
+                resumeDiv.innerHTML += '<h2>Work Experience</h2>';
+                resume.work.forEach(job => {
+                    resumeDiv.innerHTML += `
+                        <div class="job">
+                            <span class="job-title">${job.position}</span> at 
+                            <span class="job-company">${job.name}</span>
+                            <p>${job.startDate} - ${job.endDate || 'Present'}</p>
+                            <p>${job.summary}</p>
+                        </div>
+                    `;
+                });
+            } else {
+                resumeDiv.innerHTML += '<p>Work experience not available.</p>';
+            }
 
             // Skills
-            resumeDiv.innerHTML += '<h2>Skills</h2>';
-            resume.skills.forEach(skill => {
-                resumeDiv.innerHTML += `<span class="skill">${skill.name}</span>`;
-            });
+            if (resume.skills) {
+                resumeDiv.innerHTML += '<h2>Skills</h2>';
+                resume.skills.forEach(skill => {
+                    resumeDiv.innerHTML += `<span class="skill">${skill.name}</span>`;
+                });
+            } else {
+                resumeDiv.innerHTML += '<p>Skills not available.</p>';
+            }
 
             // Education
-            resumeDiv.innerHTML += '<h2>Education</h2>';
-            resume.education.forEach(edu => {
-                resumeDiv.innerHTML += `
-                    <div class="education">
-                        <p><strong>${edu.institution}</strong></p>
-                        <p>${edu.area}, ${edu.studyType}</p>
-                        <p>${edu.startDate} - ${edu.endDate}</p>
-                    </div>
-                `;
-            });
+            if (resume.education) {
+                resumeDiv.innerHTML += '<h2>Education</h2>';
+                resume.education.forEach(edu => {
+                    resumeDiv.innerHTML += `
+                        <div class="education">
+                            <p><strong>${edu.institution}</strong></p>
+                            <p>${edu.area}, ${edu.studyType}</p>
+                            <p>${edu.startDate} - ${edu.endDate}</p>
+                        </div>
+                    `;
+                });
+            } else {
+                resumeDiv.innerHTML += '<p>Education not available.</p>';
+            }
 
             // Certificates
             if (resume.certificates && resume.certificates.length > 0) {

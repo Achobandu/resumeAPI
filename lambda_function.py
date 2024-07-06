@@ -17,9 +17,12 @@ def lambda_handler(event, context):
             response = table.scan(ExclusiveStartKey=response['LastEvaluatedKey'])
             items.extend(response['Items'])
         
+          # Format the JSON with indentation and sorted keys
+        formatted_json = json.dumps(items, indent=2, sort_keys=True)
+        
         return {
             'statusCode': 200,
-            'body': json.dumps(items),
+            'body': formatted_json,
             'headers': {
                 'Content-Type': 'application/json',
                 'Access-Control-Allow-Origin': '*'  # For CORS support
@@ -29,7 +32,7 @@ def lambda_handler(event, context):
         print(e.response['Error']['Message'])
         return {
             'statusCode': 500,
-            'body': json.dumps({'error': 'Could not retrieve resume data'}),
+            'body': json.dumps({'error': 'Could not retrieve resume data'}, indent=2),
             'headers': {
                 'Content-Type': 'application/json',
                 'Access-Control-Allow-Origin': '*'  # For CORS support
